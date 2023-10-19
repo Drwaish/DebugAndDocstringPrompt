@@ -1,0 +1,5 @@
+{
+    
+        "google_style" : "Write docstring of following code in  google style.\n",
+        "numpy_style" : "'Parameters: \n -------------- \n Return\n --------\n Consider above to write docstring   of following code in  numpy style,  consider only above two arguments in docstring and not write 'Notes' and 'Examples' in docstring. \n" 
+}
