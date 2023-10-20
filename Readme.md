@@ -1,5 +1,34 @@
 # Lambda Function 
 
+# Setup Repo
+```bash
+git clone https://github.com/Drwaish/DebugAndDocstringPrompt.git
+cd DebugAndDocstringPrompt
+```
+Install dependencies
+```
+pip install openai
+```
+Paste openai api key for smooth running of code.
+
+
+Open Repository in Visual Studio Code.
+
+For locally test lambda function.
+```bash
+python lambda_function.py
+```
+For remotely test lambda function.
+### Follow following steps
+1) Enter url in 'URL' variable
+2) Paste your code in 'code' variable
+3) Uncomment your request choice
+
+Timeout for POST request is 5 seconds. If Internet connection is slow increase timeout span.
+Then 
+```bash
+python script.py
+```
 ## Debug Function
 User hit the lambda function with this payload.
 ### Payload

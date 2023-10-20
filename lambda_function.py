@@ -6,7 +6,7 @@ import openai
 
 
 load_dotenv()
-openai.api_key = os.getenv("OPENAI_KEY")
+openai.api_key = "Paste your key here"
 
 def lambda_handler(event_jsonified, context):
     """
