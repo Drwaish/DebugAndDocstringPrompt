@@ -5,13 +5,19 @@ User hit the lambda function with this payload.
 ### Payload
 ```
 { 
-   "body" : 
-   {
-       "prompt" : """
-                Your are a very helpful code debbuger. Debug the following code and fix the bugs.
-                "{code}"
-                """
-   }
+   "body" : {
+      "messages" :
+       [
+            {
+            "role": "system",
+            "content": "Your are a very helpful code debbuger. Debug the following code and fix the bugs."
+            },
+            {
+            "role": "user"
+            "content: "'''<Enter your code here>'''"
+            }
+       ] 
+    }
 }
 ```
 ## Write Docstring 
@@ -21,15 +27,18 @@ Payload return  the docstring in google style.
 ```
 {
     "body": {
-            "numpy_style" : """
-                        'Parameters: 
-                        -------------- 
-                        Return
-                        ------'
-                         Consider above to write docstring   of following code in  numpy style,  consider only above two arguments in docstring and not write 'Notes' and 'Examples' in docstring.
-                         "{code}"
-                         """ 
+        "messages" : 
+        [
+            {
+            "role": "system",
+            "content": "'Parameters: \\n -------------- \\n Return\\n --------\\n Consider above to write docstring   of following code in  numpy style,  consider only above two arguments in docstring and not write 'Notes' and 'Examples' in docstring."
+            },
+            {
+            "role": "user"
+            "content: "'''<Enter your code here>'''"
             }
+        ]
+   }
 }
 ```
 
@@ -38,11 +47,18 @@ Payload return  the docstring in google style.
 ```
 { 
     "body": {
-                "google_style" : """
-                         Write docstring of following code in  google style.
-                         "{code}"
-                         """   
-            }   
+        "messages" :
+        [
+            {
+                "role": "system",
+                "content": "Your are a very helpful code debbuger. Debug the following code and fix the bugs."
+            },
+            {
+                "role": "user"
+                "content: "'''<Enter your code here>'''"
+            }
+        ]
+    }
 }
 ```
 Deploy on AWS Lambda and automate your work.

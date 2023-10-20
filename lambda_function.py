@@ -1,9 +1,11 @@
 """Lambda handler"""
-import json
-import openai
 import os
+import json
+from dotenv import load_dotenv
+import openai
 
 
+load_dotenv()
 openai.api_key = os.getenv("OPENAI_KEY")
 
 def lambda_handler(event_jsonified, context):
@@ -24,9 +26,8 @@ def lambda_handler(event_jsonified, context):
     try:
         event = event_jsonified['body']
         event = json.loads(event, strict = False)
-        prompt = event["prompt"]
-        if prompt is not None:
-            messages = [{"role": "user", "content": prompt}]
+        messages = event["prompt"]
+        if messages[1]['content'] is not None:
             response = openai.ChatCompletion.create(
             model= "gpt-3.5-turbo",
             messages=messages,
@@ -40,36 +41,15 @@ def lambda_handler(event_jsonified, context):
                 "isBase64Encoded": False
                 }
             )
-        else:
-            return {'statusCode': 404,
-                         'Error' : "Bad Params", 
-                         'headers': {
-                            'Access-Control-Allow-Headers': '*',
-                            'Access-Control-Allow-Origin': '*',
-                            'Access-Control-Allow-Methods': '*'
-                        },
-                        'Message': 'Text Not Available'  
-                    }
-    except KeyError as eror:
-        return {
-                'Error' : eror, 
-                'headers': {
-                'Access-Control-Allow-Headers': '*',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': '*'
-                },
-                'Message': "Check Key in request body"
-        }
-    except ValueError as eror:
-        return {
-                'Error' : eror, 
-                'headers': {
-                'Access-Control-Allow-Headers': '*',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': '*'
-                },
-                'Message': "Check Key in request body"
-        }
+        return {'statusCode': 404,
+                        'Error' : "Bad Params", 
+                        'headers': {
+                        'Access-Control-Allow-Headers': '*',
+                        'Access-Control-Allow-Origin': '*',
+                        'Access-Control-Allow-Methods': '*'
+                    },
+                    'Message': 'Text Not Available'  
+                }   
     except openai.error.Timeout as eror:
         return {'statusCode': 401,
                          'Error' : eror, 
@@ -88,7 +68,7 @@ def lambda_handler(event_jsonified, context):
                             'Access-Control-Allow-Origin': '*',
                             'Access-Control-Allow-Methods': '*'
                         },
-                     'Message':  "Retry your request after a brief wait and contact to OpenAI if the issue persists."
+                        'Message':  "Retry your request after a brief wait and contact to OpenAI if the issue persists."
                     }
     except openai.error.APIConnectionError as eror:
       #Handle connection error, e.g. check network or log
@@ -99,7 +79,7 @@ def lambda_handler(event_jsonified, context):
                             'Access-Control-Allow-Origin': '*',
                             'Access-Control-Allow-Methods': '*'
                         },
-                       'Message':  "Retry your request after a brief wait and contact to OpenAI if the issue persists."
+                        'Message':  "Retry your request after a brief wait and contact to OpenAI if the issue persists."
                     }
     except openai.error.InvalidRequestError as eror:
       #Handle invalid request error, e.g. validate parameters or log
