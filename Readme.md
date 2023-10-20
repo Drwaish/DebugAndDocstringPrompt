@@ -49,16 +49,19 @@ Payload return  the docstring in google style.
     "body": {
         "messages" :
         [
-            {
-                "role": "system",
-                "content": "Your are a very helpful code debbuger. Debug the following code and fix the bugs."
+           {
+            "role": "system",
+            "content": "Write docstring of following code in  google style. "
             },
             {
-                "role": "user"
-                "content: "'''<Enter your code here>'''"
+            "role": "user",
+            "content": "def data():\n return True"
             }
         ]
     }
 }
 ```
+# Important Note: 
+### Use script.py to test your lambda. 
+
 Deploy on AWS Lambda and automate your work.
